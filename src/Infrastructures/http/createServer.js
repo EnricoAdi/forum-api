@@ -55,7 +55,7 @@ const createServer = async (container) => {
     method: 'GET',
     path: '/',
     handler: () => ({
-      value: 'Hello world2!',
+      value: 'Hello world!',
     }),
   });
   server.ext('onPreResponse', (request, h) => {

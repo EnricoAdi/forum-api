@@ -12,6 +12,10 @@ const RepliesTableTestHelper = {
   async addReply({
     id = 'reply-123', content = 'dicoding replie', comment_id = 'comment-123', owner = 'user-123', is_delete = false,
   }) {
+    const getReply = await pool.query('SELECT * FROM replies WHERE id = $1', [id]);
+    if (getReply.rowCount > 0) {
+      return;
+    }
     const query = {
       text: 'INSERT INTO replies(id, content, comment_id, owner, is_delete) VALUES($1, $2, $3, $4, $5)',
       // eslint-disable-next-line camelcase
