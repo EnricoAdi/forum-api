@@ -11,6 +11,10 @@ const CommentsTableTestHelper = {
   async addComment({
     id = 'comment-123', content = 'dicoding comment', thread_id = 'thread-123', owner = 'user-123', is_delete = false,
   }) {
+    const getComment = await pool.query('SELECT * FROM comments WHERE id = $1', [id]);
+    if (getComment.rowCount > 0) {
+      return;
+    }
     const query = {
       text: 'INSERT INTO comments(id, content, thread_id, owner, is_delete) VALUES($1, $2, $3, $4, $5)',
       // eslint-disable-next-line camelcase
